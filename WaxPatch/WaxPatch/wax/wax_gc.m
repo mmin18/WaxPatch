@@ -46,6 +46,9 @@ static NSTimer* timer = nil;
             lua_pushvalue(L, -1);
             lua_pushnil(L);
             lua_rawset(L, -4); // Clear it!
+            if(instanceUserdata->waxRetain) {
+                [instanceUserdata->instance release];
+            }
         }        
     }
 

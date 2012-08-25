@@ -218,8 +218,10 @@ BOOL wax_instance_pushFunction(lua_State *L, id self, SEL selector) {
     if (lua_isnil(L, -1)) {
         // TODO:
         // quick and dirty solution to let obj-c call directly into lua
-        // cause a obj-c leak, should we release it later?
-        wax_instance_create(L, self, NO);
+        // to avoid obj-c leak, we release instance when wax_gc
+        wax_instance_userdata *data = wax_instance_create(L, self, NO);
+        data->waxRetain = YES;
+//        [self release];
 //        END_STACK_MODIFY(L, 0)
 //        return NO; // userdata doesn't exist
     }

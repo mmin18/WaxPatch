@@ -20,6 +20,7 @@ typedef struct _wax_instance_userdata {
     BOOL isClass;
     Class isSuper; // isSuper not only stores whether the class is a super, but it also contains the value of the next superClass.
 	BOOL actAsSuper; // It only acts like a super once, when it is called for the first time.
+    BOOL waxRetain; // retained by wax, release instance when wax_gc
 } wax_instance_userdata;
 
 int luaopen_wax_instance(lua_State *L);
