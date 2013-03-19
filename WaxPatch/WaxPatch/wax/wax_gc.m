@@ -48,10 +48,7 @@ static NSTimer* timer = nil;
             lua_rawset(L, -4); // Clear it!
             if(instanceUserdata->waxRetain) {
                 [instanceUserdata->instance release];
-<<<<<<< HEAD
-=======
                 instanceUserdata->waxRetain = NO; // fix gc bad exec
->>>>>>> fix gc issue
             }
         }        
     }
