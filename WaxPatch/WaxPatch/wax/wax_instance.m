@@ -81,6 +81,7 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     instanceUserdata->isClass = isClass;
     instanceUserdata->isSuper = nil;
 	instanceUserdata->actAsSuper = NO;
+    instanceUserdata->waxRetain = NO;
      
     if (!isClass) {
         //wax_log(LOG_GC, @"Retaining %@ for %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, instanceUserdata);
@@ -129,6 +130,7 @@ wax_instance_userdata *wax_instance_createSuper(lua_State *L, wax_instance_userd
     superInstanceUserdata->instance = instanceUserdata->instance;
     superInstanceUserdata->isClass = instanceUserdata->isClass;
 	superInstanceUserdata->actAsSuper = YES;
+    superInstanceUserdata->waxRetain = NO;
 	
 	// isSuper not only stores whether the class is a super, but it also contains the value of the next superClass
 	if (instanceUserdata->isSuper) {
@@ -218,7 +220,11 @@ BOOL wax_instance_pushFunction(lua_State *L, id self, SEL selector) {
     if (lua_isnil(L, -1)) {
         // TODO:
         // quick and dirty solution to let obj-c call directly into lua
+<<<<<<< HEAD
         // to avoid obj-c leak, we release instance when wax_gc
+=======
+        // cause a obj-c leak, should we release it later?
+>>>>>>> fix gc issue
         wax_instance_userdata *data = wax_instance_create(L, self, NO);
         data->waxRetain = YES;
 //        [self release];
